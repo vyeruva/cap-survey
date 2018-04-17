@@ -1,0 +1,62 @@
+<div *ngIf="showForm">
+  <form (ngSubmit)="onSubmit(f)" #f="ngForm">
+
+  <input type="text" name="name" ngModel/>
+  <input type="text" name="project" ngModel />
+
+  <div *ngFor="let type of types; let typeIn = index">
+    <h2>{{type}}</h2>
+    <table>
+      <tr>
+        <th>Q#</th>
+        <th>Question</th>
+        <th>Level</th>
+        <th>Comments</th>
+        <th>Current</th>
+        <th>Expected</th>
+      </tr>
+      <tr *ngFor="let question of questions[type];  let in = index">
+        <td>{{question.id}}
+        </td>
+        <td>{{question.question}}</td>
+        <td>
+          <select ngModel name="level-{{typeIn}}-{{in}}">
+            <option value="1">Basic</option>
+            <option value="2">Beginner</option>
+            <option value="3">Intermediate</option>
+            <option value="4">Advanced</option>
+            <option value="5">Expert</option>
+          </select>
+        </td>
+        <td>
+          <input type="text" ngModel name="comments-{{typeIn}}-{{in}}" />
+        </td>
+        <td>
+          <select ngModel name="current-{{typeIn}}-{{in}}">
+            <option value="true">Y</option>
+            <option value="false">N</option>
+          </select>
+        </td>
+        <td>
+          <select ngModel name="expected-{{typeIn}}-{{in}}">
+            <option value="true">Y</option>
+            <option value="false">N</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+  </div>
+  <input type="submit" value="Submit" />
+</form>
+</div>
+
+
+<div style="display: block" *ngIf="!showForm">
+  <canvas baseChart
+          [datasets]="radarChartData"
+          [labels]="radarChartLabels"
+          [chartType]="radarChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"
+          [options]="options"></canvas>
+</div>
