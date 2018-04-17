@@ -9,7 +9,7 @@ export class SurveyService {
   constructor(private http: Http) { }
 
   getQuestions(){
-    return this.http.get('http://localhost:8090/questions')
+    return this.http.get('http://cox-api-cox-audit.7e14.starter-us-west-2.openshiftapps.com/questions')
       .map(
         (response: Response) => {
           const data = response.json();
@@ -25,12 +25,12 @@ export class SurveyService {
 
   submitAnswers(answers,name,project){
     debugger;
-    return this.http.put('http://localhost:8090/answers/'+name+"/"+project, answers);
+    return this.http.put('http://cox-api-cox-audit.7e14.starter-us-west-2.openshiftapps.com/answers/'+name+"/"+project, answers);
   }
 
   getRanking(id){
     debugger;
-    return this.http.get('http://localhost:8090/scoreboard/'+id).map(
+    return this.http.get('http://cox-api-cox-audit.7e14.starter-us-west-2.openshiftapps.com/scoreboard/'+id).map(
       (response: Response) => {
         const data = response.json();
         return data;
