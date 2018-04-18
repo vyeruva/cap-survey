@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class SurveyService {
 	
-  private serviceEndpointUrl:any="http://cox-api-cox-audit.7e14.starter-us-west-2.openshiftapps.com/questions";
+  private serviceEndpointUrl:any="https://cox-api-cox-audit.7e14.starter-us-west-2.openshiftapps.com/questions";
 
   constructor(private http: Http) { }
 
