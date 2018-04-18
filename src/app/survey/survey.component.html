@@ -1,12 +1,24 @@
-<div *ngIf="showForm">
+<div *ngIf="showForm" class="p-3">
+  <h2 class="text-center">Cox Survey</h2>
   <form (ngSubmit)="onSubmit(f)" #f="ngForm">
 
-  <input type="text" name="name" ngModel/>
-  <input type="text" name="project" ngModel />
+  <div class="form-group">
+    <label for="name"><strong>Name</strong></label>
+    <input type="text" class="form-control " placeholder="Enter name" ngModel id="name" name="name">
+  </div>
+
+  <div class="form-group">
+    <label for="name"><strong>Project</strong></label>
+    <input type="text" class="form-control " placeholder="Enter project" ngModel id="project" name="project">
+  </div>
+
+
+  <!-- <input type="text" name="name" ngModel/> -->
+  <!-- <input type="text" name="project" ngModel /> -->
 
   <div *ngFor="let type of types; let typeIn = index">
     <h2>{{type}}</h2>
-    <table>
+    <table class="table">
       <tr>
         <th>Q#</th>
         <th>Question</th>
@@ -46,7 +58,9 @@
       </tr>
     </table>
   </div>
-  <input type="submit" value="Submit" />
+  <div class="mx-auto" style="width: 50px;">
+    <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
+  </div>
 </form>
 </div>
 

@@ -98,6 +98,12 @@ export class SurveyComponent implements OnInit {
 
           this.surveyService.getRanking(rankingId).subscribe(
             (response) => {
+              let ranking:any = response[0];
+              this.radarChartData = [
+                {data: [ranking.sourcecontrolcurrent,ranking.buildcurrent,ranking.tmcurrent,ranking.deploycurrent,ranking.rmcurrent,ranking.moncurrent], label: 'Current Level',fill: false},
+                {data: [ranking.sourcecontrolexpected,ranking.buildexpected,ranking.tmexpected,ranking.deployexpected,ranking.rmexpected,ranking.monexpected], label: 'Expected Level', fill:false}
+              ];
+              this.showForm = false;
               console.log(response);
             },
             (error) => console.log(error)

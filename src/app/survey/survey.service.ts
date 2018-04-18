@@ -5,13 +5,12 @@ import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class SurveyService {
-	
-  private serviceEndpointUrl:any="https://cox-api-cox-audit.7e14.starter-us-west-2.openshiftapps.com/questions";
 
+  private endPointUrl = "https://cox-api-cox-audit.7e14.starter-us-west-2.openshiftapps.com/";
   constructor(private http: Http) { }
 
   getQuestions(){
-    return this.http.get(this.serviceEndpointUrl)
+    return this.http.get(this.endPointUrl + 'questions')
       .map(
         (response: Response) => {
           const data = response.json();
@@ -26,13 +25,11 @@ export class SurveyService {
   }
 
   submitAnswers(answers,name,project){
-    debugger;
-    return this.http.put(this.serviceEndpointUrl + name+ "/" + project, answers);
+    return this.http.put(this.endPointUrl + 'answers/'+name+"/"+project, answers);
   }
 
   getRanking(id){
-    debugger;
-    return this.http.get(this.serviceEndpointUrl + id).map(
+    return this.http.get(this.endPointUrl + 'scoreboard/'+id).map(
       (response: Response) => {
         const data = response.json();
         return data;
