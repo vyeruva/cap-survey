@@ -9,6 +9,11 @@ import {NgForm} from '@angular/forms';
 })
 export class SurveyComponent implements OnInit {
 
+  selectedTabIndex = 0;
+
+  public clickedTab(index){
+    this.selectedTabIndex = index;
+  }
 
   //-------------------------------------------------------
   // Radar
@@ -84,7 +89,6 @@ export class SurveyComponent implements OnInit {
         answer.question = this.questions[this.types[typeIndex]][questionIndex];
         answer.level = form.value["level-" + typeIndex + "-" + questionIndex];
         answer.current = form.value["current-" + typeIndex + "-" + questionIndex];
-        answer.expected = form.value["expected-" + typeIndex + "-" + questionIndex];
         answer.comments = form.value["comments-" + typeIndex + "-" + questionIndex];
         answers.push(answer);
       }

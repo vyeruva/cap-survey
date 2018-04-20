@@ -12,51 +12,77 @@
     <input type="text" class="form-control " placeholder="Enter project" ngModel id="project" name="project">
   </div>
 
+  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+  <!-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item">
+      <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Home</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Profile</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Contact</a>
+    </li>
+  </ul>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
+    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
+    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+  </div> -->
+
+  <!-- %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% -->
+  <ul class="nav nav-tabs" id="myTab" role="tablist">
+    <li class="nav-item"  *ngFor="let type of types; let typeIn = index" [ngClass]="{'highlight_tab':typeIn==selectedTabIndex}">
+      <a class="nav-link active" id="home-{{type}}" data-toggle="tab" href="#{{type}}" role="tab" [attr.aria-controls]="type" aria-selected="true" (click)="clickedTab(typeIn)">{{type}}</a>
+    </li>
+  </ul>
 
   <!-- <input type="text" name="name" ngModel/> -->
   <!-- <input type="text" name="project" ngModel /> -->
 
-  <div *ngFor="let type of types; let typeIn = index">
-    <h2>{{type}}</h2>
-    <table class="table">
-      <tr>
-        <th>Q#</th>
-        <th>Question</th>
-        <th>Level</th>
-        <th>Comments</th>
-        <th>Current</th>
-        <th>Expected</th>
-      </tr>
-      <tr *ngFor="let question of questions[type];  let in = index">
-        <td>{{question.id}}
-        </td>
-        <td>{{question.question}}</td>
-        <td>
-          <select ngModel name="level-{{typeIn}}-{{in}}">
-            <option value="1">Basic</option>
-            <option value="2">Beginner</option>
-            <option value="3">Intermediate</option>
-            <option value="4">Advanced</option>
-            <option value="5">Expert</option>
-          </select>
-        </td>
-        <td>
-          <input type="text" ngModel name="comments-{{typeIn}}-{{in}}" />
-        </td>
-        <td>
-          <select ngModel name="current-{{typeIn}}-{{in}}">
-            <option value="true">Y</option>
-            <option value="false">N</option>
-          </select>
-        </td>
-        <td>
-          <select ngModel name="expected-{{typeIn}}-{{in}}">
-            <option value="true">Y</option>
-            <option value="false">N</option>
-          </select>
-        </td>
-      </tr>
-    </table>
+  <div class="tab-content" id="myTabContent">
+    <div class="tab-pane fade" [ngClass]="{'show':typeIn==selectedTabIndex, 'active':typeIn==selectedTabIndex}" id="{{type}}" role="tabpanel" attr.aria-labelledby="{{type}}-tab" *ngFor="let type of types; let typeIn = index">
+      <h2>{{type}}</h2>
+      <table class="table">
+        <tr>
+          <th>Q#</th>
+          <th>Question</th>
+          <th>Base</th>
+          <th>Beginner</th>
+          <th>Intermediate</th>
+          <th>Advanced</th>
+          <th>Expert</th>
+          <th>Comments</th>
+          <th>Current</th>
+          <th>Expected</th>
+        </tr>
+        <tr *ngFor="let question of questions[type];  let in = index">
+          <td>{{question.id}}
+          </td>
+          <td>{{question.question}}</td>
+          <td><div [ngClass]="{'mx-auto':true, 'bg-warning':question.expected_level==1}" style="width:12px;"><input ngModel type="radio" value="1"  name="level-{{typeIn}}-{{in}}" /></div></td>
+          <td><div class="mx-auto" [ngClass]="{'bg-warning':question.expected_level==2}" style="width:12px;"><input ngModel type="radio" value="2"  name="level-{{typeIn}}-{{in}}" /></div></td>
+          <td><div class="mx-auto"  [ngClass]="{'bg-warning':question.expected_level==3}"style="width:12px;"><input ngModel type="radio" value="3"  name="level-{{typeIn}}-{{in}}" /></div></td>
+          <td><div class="mx-auto" [ngClass]="{'bg-warning':question.expected_level==4}" style="width:12px;"><input ngModel type="radio" value="4"  name="level-{{typeIn}}-{{in}}" /></div></td>
+          <td><div [ngClass]="{'mx-auto':true, 'bg-warning':question.expected_level==5}" style="width:12px;"><input ngModel type="radio" value="5"  name="level-{{typeIn}}-{{in}}" /></div></td>
+          <td>
+            <input type="text" ngModel name="comments-{{typeIn}}-{{in}}" />
+          </td>
+          <td>
+            <div class="mx-auto" style="width:30px;">
+              <select ngModel name="current-{{typeIn}}-{{in}}">
+                <option value="true">Y</option>
+                <option value="false">N</option>
+              </select>
+            </div>
+          </td>
+          <td>
+            <div *ngIf="question.expected" class="mx-auto" style="width:5px;">Y</div>
+            <div *ngIf="!question.expected" class="mx-auto" style="width:5px;">N</div>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
   <div class="mx-auto" style="width: 50px;">
     <input type="submit" value="Submit" class="btn btn-primary btn-lg" />
