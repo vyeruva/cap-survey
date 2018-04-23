@@ -87,9 +87,9 @@ export class SurveyComponent implements OnInit {
       for(let questionIndex=0;questionIndex<this.questions[this.types[typeIndex]].length;questionIndex++){
         let answer:Answer = new Answer();
         answer.question = this.questions[this.types[typeIndex]][questionIndex];
-        answer.level = form.value["level-" + typeIndex + "-" + questionIndex];
-        answer.current = form.value["current-" + typeIndex + "-" + questionIndex];
-        answer.comments = form.value["comments-" + typeIndex + "-" + questionIndex];
+        answer.level = form.value["groupInput"+this.types[typeIndex]]["level-" + typeIndex + "-" + questionIndex];
+        answer.current = form.value["groupInput"+this.types[typeIndex]]["current-" + typeIndex + "-" + questionIndex];
+        answer.comments = form.value["groupInput"+this.types[typeIndex]]["comments-" + typeIndex + "-" + questionIndex];
         answers.push(answer);
       }
     }
@@ -115,5 +115,13 @@ export class SurveyComponent implements OnInit {
 
         }
       );
+  }
+
+  next(){
+    this.selectedTabIndex++;
+  }
+
+  previous(){
+    this.selectedTabIndex--;
   }
 }

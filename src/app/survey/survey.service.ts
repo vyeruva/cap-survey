@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import 'rxjs/Rx';
 import { Observable } from 'rxjs/Observable';
@@ -11,6 +11,7 @@ export class SurveyService {
 
   getQuestions(){
     return this.http.get(this.endPointUrl + 'questions')
+      .timeout(10000)
       .map(
         (response: Response) => {
           const data = response.json();
