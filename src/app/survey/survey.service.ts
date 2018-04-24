@@ -26,11 +26,13 @@ export class SurveyService {
   }
 
   submitAnswers(answers,name,project){
-    return this.http.put(this.endPointUrl + 'answers/'+name+"/"+project, answers);
+    return this.http.put(this.endPointUrl + 'answers/'+name+"/"+project, answers).timeout(10000);
   }
 
   getRanking(id){
-    return this.http.get(this.endPointUrl + 'scoreboard/'+id).map(
+    return this.http.get(this.endPointUrl + 'scoreboard/'+id)
+    .timeout(10000)
+    .map(
       (response: Response) => {
         const data = response.json();
         return data;
