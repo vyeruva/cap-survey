@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class SurveyService {
 
-  private endPointUrl = "https://cox-api-cox-audit.7e14.starter-us-west-2.openshiftapps.com/";
+  private endPointUrl = "https://murmuring-shelf-42077.herokuapp.com/";
   constructor(private http: Http) { }
 
   getQuestions(){
