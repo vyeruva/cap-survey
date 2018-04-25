@@ -11,7 +11,7 @@ export class SurveyService {
 
   getQuestions(){
     return this.http.get(this.endPointUrl + 'questions')
-      .timeout(10000)
+      .timeout(70000)
       .map(
         (response: Response) => {
           const data = response.json();
@@ -26,12 +26,12 @@ export class SurveyService {
   }
 
   submitAnswers(answers,name,project){
-    return this.http.put(this.endPointUrl + 'answers/'+name+"/"+project, answers).timeout(10000);
+    return this.http.put(this.endPointUrl + 'answers/'+name+"/"+project, answers).timeout(70000);
   }
 
   getRanking(id){
     return this.http.get(this.endPointUrl + 'scoreboard/'+id)
-    .timeout(10000)
+    .timeout(70000)
     .map(
       (response: Response) => {
         const data = response.json();
