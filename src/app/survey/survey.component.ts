@@ -10,6 +10,7 @@ import {NgForm} from '@angular/forms';
 export class SurveyComponent implements OnInit {
 
   selectedTabIndex = 0;
+  public showSpinner = false;
 
   public clickedTab(index){
     this.selectedTabIndex = index;
@@ -54,14 +55,19 @@ export class SurveyComponent implements OnInit {
   constructor(private surveyService:SurveyService) { }
 
   ngOnInit() {
+    this.showSpinner = true;
     this.surveyService.getQuestions().subscribe(
       (response) => {
+        this.showSpinner = false;
         this.questions = response;
         this.types = Object.keys(this.questions);
         console.log(this.types);
         console.log(response)
       },
-      (error) => console.log(error)
+      (error) => {
+        console.log(error);
+        this.showSpinner = false;
+      }
     );
   }
 
@@ -93,6 +99,7 @@ export class SurveyComponent implements OnInit {
         answers.push(answer);
       }
     }
+    this.showSpinner = true;
     this.surveyService.submitAnswers(answers,name, project)
       .subscribe(
         (response: any) => {
@@ -102,6 +109,7 @@ export class SurveyComponent implements OnInit {
 
           this.surveyService.getRanking(rankingId).subscribe(
             (response) => {
+              this.showSpinner = false;
               let ranking:any = response[0];
               this.radarChartData = [
                 {data: [ranking.sourcecontrolcurrent,ranking.buildcurrent,ranking.tmcurrent,ranking.deploycurrent,ranking.rmcurrent,ranking.moncurrent], label: 'Current Level',fill: false},
@@ -110,7 +118,10 @@ export class SurveyComponent implements OnInit {
               this.showForm = false;
               console.log(response);
             },
-            (error) => console.log(error)
+            (error) => {
+              console.log(error);
+              this.showSpinner = false;
+            }
           );
 
         }
